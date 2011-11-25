@@ -1,0 +1,23 @@
+#Configuration for Chancecraft 0.2
+
+General:
+    DebugPrint: false
+    CommandPrint: false
+    DetailPlayerPrint: true
+    ReturnOnFail: false
+    TossOnFail: null
+    
+## Template to add an item.
+## Limit to this version. Only supports itemID and blockID, 
+#    <ItemID>:
+#        NormalChance: <0-100>
+#        ProfessionExclusive: <true/false>
+#        Professions:
+#            <professionName>:
+#                ProfessionChance0: <0-100>
+#                ProfessionChanceMin: <0-100>
+#                ProfessionChanceMax: <0-100>
+#                MinProflvl: <0-100>
+#                MaxProflvl: <0-100>
+
+Items:
