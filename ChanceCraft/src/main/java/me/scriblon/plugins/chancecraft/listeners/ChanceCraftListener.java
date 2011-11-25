@@ -4,6 +4,7 @@
  */
 package me.scriblon.plugins.chancecraft.listeners;
 
+import me.scriblon.plugins.chancecraft.util.Dice;
 import com.zford.jobs.Jobs;
 import com.zford.jobs.config.container.Job;
 import com.zford.jobs.config.container.JobsPlayer;

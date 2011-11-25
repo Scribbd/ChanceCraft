@@ -13,8 +13,9 @@
  *You should have received a copy of the GNU General Public License
  *along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package me.scriblon.plugins.chancecraft.configuration;
+package me.scriblon.plugins.chancecraft.util;
 
+import com.zford.jobs.Jobs;
 import me.scriblon.plugins.chancecraft.ChanceCraft;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -24,23 +25,29 @@ import org.bukkit.plugin.PluginManager;
  * depenedent plugins.
  * @author Coen Meulenkamp (Scriblon, ~theJaf) <coenmeulenkamp at gmail.com>
  */
-public class LinkChecker {
+public class Linker {
 
     public static boolean checkSpout(PluginManager pm) {
         if (pm.getPlugin("Spout") == null) {
-            ChanceCraft.logInfo("detects that there is no Spout installed");
+            ChanceCraft.logInfo("detects that there is no Spout installed!");
             return false;
         }
+        ChanceCraft.logInfo("detected Spout.");
         return true;
     }
 
-    public static Plugin checkJobs(PluginManager pm) {
+    public static boolean checkJobs(PluginManager pm) {
         Plugin jobs = pm.getPlugin("Jobs");
         if (jobs == null) {
-            ChanceCraft.logInfo("detects that there is no Jobs installed.");
-        } else {
-            ChanceCraft.logInfo("Jobs plugin detected.");
+            ChanceCraft.logInfo("detects that there is no Jobs installed. "
+                    + "Jobs functionality will be disabled");
+            return false;
         }
-        return jobs;
+        ChanceCraft.logInfo("detected Jobs.");
+        return true;
+    }
+    
+    public static Jobs getJobs(PluginManager pm){
+        return (Jobs) pm.getPlugin("Jobs");
     }
 }
