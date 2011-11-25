@@ -17,7 +17,7 @@
 package me.scriblon.plugins.chancecraft.unnused;
 
 import java.util.HashMap;
-import me.scriblon.plugins.chancecraft.container.chances.ItemChance;
+import me.scriblon.plugins.chancecraft.container.ItemChance;
 
 /**
  *  Contains item configurations.

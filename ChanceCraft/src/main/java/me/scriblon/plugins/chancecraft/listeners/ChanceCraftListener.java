@@ -12,8 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.scriblon.plugins.chancecraft.container.GeneralConfigurations;
-import me.scriblon.plugins.chancecraft.container.chances.ItemChance;
-import me.scriblon.plugins.chancecraft.listeners.randomizers.Dice;
+import me.scriblon.plugins.chancecraft.container.ItemChance;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.event.inventory.InventoryCraftEvent;
@@ -35,11 +34,7 @@ public class ChanceCraftListener extends InventoryListener{
     private Plugin jobs;
     private Dice dice;
 
-    public ChanceCraftListener(GeneralConfigurations generalConfig, HashMap<String, ItemChance> itemConfig, Plugin jobs) {
-        this.generalConfig = generalConfig;
-        this.itemConfig = itemConfig;
-        this.jobs = jobs;
-        dice = new Dice();
+    public ChanceCraftListener() {
     }
     
     @Override

@@ -15,8 +15,7 @@
  */
 package me.scriblon.plugins.chancecraft.configuration;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import me.scriblon.plugins.chancecraft.ChanceCraft;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
@@ -25,24 +24,22 @@ import org.bukkit.plugin.PluginManager;
  * depenedent plugins.
  * @author Coen Meulenkamp (Scriblon, ~theJaf) <coenmeulenkamp at gmail.com>
  */
-public class Loader {
+public class LinkChecker {
 
-    public static boolean checkSpout(PluginManager pm, Logger log, String prefix) {
+    public static boolean checkSpout(PluginManager pm) {
         if (pm.getPlugin("Spout") == null) {
-            log.log(Level.WARNING, "{0}detects that there is no Spout installed"
-                    + "\n\t disabeling plugin.", prefix);
+            ChanceCraft.logInfo("detects that there is no Spout installed");
             return false;
         }
         return true;
     }
 
-    public static Plugin checkJobs(PluginManager pm, Logger log, String prefix) {
+    public static Plugin checkJobs(PluginManager pm) {
         Plugin jobs = pm.getPlugin("Jobs");
         if (jobs == null) {
-            log.log(Level.INFO, prefix + "detects that there is no Jobs installed."
-                    + "\n\t Jobs functionality will be dissabled.", prefix);
+            ChanceCraft.logInfo("detects that there is no Jobs installed.");
         } else {
-            log.log(Level.INFO, prefix + "Jobs plugin detected.", prefix);
+            ChanceCraft.logInfo("Jobs plugin detected.");
         }
         return jobs;
     }

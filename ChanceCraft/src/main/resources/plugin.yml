@@ -2,7 +2,7 @@ author: Scriblon
 database: false
 description: Adds Chances to crafting.
 generator: http://dinnerbone.com/minecraft/tools/pluginator/
-main: me.scriblon.plugins.chancecraft.Chancecraft
+main: me.scriblon.plugins.chancecraft.ChanceCraft
 name: ChanceCraft
 startup: postworld
 version: 0.2.0
