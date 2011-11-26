@@ -15,40 +15,32 @@
  */
 package me.scriblon.plugins.chancecraft.managers;
 
-import java.util.Map;
+import com.zford.jobs.Jobs;
 import me.scriblon.plugins.chancecraft.ChanceCraft;
-import me.scriblon.plugins.chancecraft.container.ItemChance;
-import me.scriblon.plugins.chancecraft.util.Dice;
+import me.scriblon.plugins.chancecraft.util.Linker;
+import org.bukkit.plugin.PluginManager;
 
 /**
  *
  * @author Coen Meulenkamp (Scriblon, ~theJaf) <coenmeulenkamp at gmail.com>
  */
-public class ChanceManager {
+public class JobsManager {
     
     private final ChanceCraft plugin;
-    private final SettingsManager settings;
-    private final JobsManager jobs;
-    private final Dice dice;
     
-    private Map<Integer, ItemChance> items;
+    private Jobs jobs;
+    private boolean isJobsAvailable;
     
-    public ChanceManager(){
-        plugin =  ChanceCraft.getInstance();
-        settings = plugin.getSettingsManager();
-        jobs = plugin.getJobsManager();
-        dice = new Dice();
-    }
-    
-    public boolean isChanceItem(int typeID){
-        return items.containsKey(typeID);
-    }
-    
-    public boolean isCraftSucces(int typeID){
-        if(!isChanceItem(typeID))
-            return false;
+    public JobsManager(){
+        plugin = ChanceCraft.getInstance();
         
-        
+        final PluginManager pm = plugin.getServer().getPluginManager();
+        isJobsAvailable = Linker.checkJobs(pm);
+        if(isJobsAvailable)
+            jobs = Linker.getJobs(pm);
     }
     
+    public boolean isAvailable(){
+        return isJobsAvailable;
+    }
 }

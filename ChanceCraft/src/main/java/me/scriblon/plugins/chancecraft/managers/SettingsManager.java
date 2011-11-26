@@ -16,9 +16,12 @@
 package me.scriblon.plugins.chancecraft.managers;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
+import me.scriblon.plugins.chancecraft.ChanceCraft;
 import me.scriblon.plugins.chancecraft.container.GeneralConfigurations;
 import me.scriblon.plugins.chancecraft.container.ItemChance;
+import me.scriblon.plugins.chancecraft.util.Linker;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -27,9 +30,26 @@ import org.bukkit.configuration.ConfigurationSection;
  * @author Coen Meulenkamp (Scriblon, ~theJaf) <coenmeulenkamp at gmail.com>
  */
 public class SettingsManager {
-    //SettingConatainers
-    private final GeneralConfigurations general;
+    final private ChanceCraft chance;    
+    //Setting Containers
+    private GeneralConfigurations generalConfig;
+    private Map<Integer, ItemChance> itemsConfig;
     
+    public SettingsManager(){
+        chance = ChanceCraft.getInstance();
+    }
+    
+    public void configureSettings(){
+        
+    }
+    
+    public GeneralConfigurations getGeneralConfig(){
+        return generalConfig;
+    }
+    
+    public Map<Integer, ItemChance> getItems(){
+        return itemsConfig;
+    }
     
     public GeneralConfigurations getGeneralConfig(Configuration config){
         boolean debugPrint, commandPrint, detailPlayerPrint, returnOnFail, tossOnFail;

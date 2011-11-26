@@ -21,19 +21,21 @@ import java.util.Random;
  * @author Coen Meulenkamp (Scriblon, ~theJaf) <coenmeulenkamp at gmail.com>
  */
 public class Dice {
-    private static Random rnd;
+    
+    final private Random rnd;
+    
+    private int count;
     
     public Dice(){
         rnd = new Random();
     }
     
-    public int roll(){
-        return rnd.nextInt(100);
-    }
-    
     public boolean succes(double input){
-        return false;
+        return input >= roll();
     }
     
-    
+    public int roll(){
+        count++;
+        return rnd.nextInt(100) + 1;
+    }
 }

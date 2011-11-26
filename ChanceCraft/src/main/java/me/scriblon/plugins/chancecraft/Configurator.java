@@ -11,8 +11,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
+import sun.swing.SwingUtilities2.Section;
 
 /**
  * Handels the configuration file and saves/load the configurations in nice containers.
@@ -27,7 +29,7 @@ public class Configurator {
         plugin = ChanceCraft.getInstance();
     }
     
-    public boolean isPluginConfigured(){
+    public boolean isPluginConfigurable(){
         // Check if Spout is Installed
         if(!Linker.checkSpout(plugin.getServer().getPluginManager())){
             this.requestStop();
@@ -37,7 +39,9 @@ public class Configurator {
         if(!checkFiles())
             return false;
         // Check contents config.yml file
-        if()
+        if(!checkItems())
+            return false;
+        // And finally when everything checks out:
         return true;
     }
     
@@ -77,9 +81,11 @@ public class Configurator {
     }
     
     private boolean checkItems(){
-        final FileConfiguration config = plugin.getConfig();
-        
-        
+        final ConfigurationSection itemSection = plugin.getConfig().getConfigurationSection("Items");
+        if(itemSection.getKeys(false).isEmpty()){
+            ChanceCraft.logSevere("detected that no items are configured. Please configure Items and restart server!");
+            this.requestStop();
+        }
         
         return true;
     }
