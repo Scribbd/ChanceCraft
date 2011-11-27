@@ -14,12 +14,12 @@ import org.bukkit.configuration.ConfigurationSection;
  */
 public class ItemChance {
     // Fields
-    private String itemName;
-    private String itemID;
-    private boolean profExclusive;
-    private double normalChance;
+    private final String itemName;
+    private final String itemID;
+    private final boolean profExclusive;
+    private final double normalChance;
     // Map with chance professions.
-    private HashMap<String,ProfChance> profs;
+    private final HashMap<String,ProfChance> profs;
     
     /**
      * Needs profession map profided by external source.
@@ -68,12 +68,16 @@ public class ItemChance {
         return profs.containsKey(profName);
     }
     
-    public double getChance(String profName, int lvl){
-        return profs.get(profName).calculateChance(lvl);
+    public ProfChance getProfession(String profName){
+        return profs.get(profName);
     }
     
-    public ProfChance getProfessions(String profName){
-        return profs.get(profName);
+    public Set<String> getProfessions(){
+        return profs.keySet();
+    }
+    
+    public double getChance(String profName, int lvl){
+        return profs.get(profName).calculateChance(lvl);
     }
     
     //Auto generated
@@ -81,32 +85,16 @@ public class ItemChance {
         return itemID;
     }
 
-    public void setItemID(String itemID) {
-        this.itemID = itemID;
-    }
-
     public String getItemName() {
         return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
     }
 
     public double getNormalChance() {
         return normalChance;
     }
 
-    public void setNormalChance(double normalChance) {
-        this.normalChance = normalChance;
-    }
-
     public boolean isProfExclusive() {
         return profExclusive;
-    }
-
-    public void setProfExclusive(boolean profExclusive) {
-        this.profExclusive = profExclusive;
     }
     
     public HashMap<String, ProfChance> getProfChances(){

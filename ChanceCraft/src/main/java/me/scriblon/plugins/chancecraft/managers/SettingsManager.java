@@ -21,7 +21,6 @@ import java.util.Set;
 import me.scriblon.plugins.chancecraft.ChanceCraft;
 import me.scriblon.plugins.chancecraft.container.GeneralConfigurations;
 import me.scriblon.plugins.chancecraft.container.ItemChance;
-import me.scriblon.plugins.chancecraft.util.Linker;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -40,7 +39,9 @@ public class SettingsManager {
     }
     
     public void configureSettings(){
-        
+        final Configuration config = chance.getConfig();
+        generalConfig = this.extractGeneralConfig(config);
+        itemsConfig = this.extractItemConfig(config);
     }
     
     public GeneralConfigurations getGeneralConfig(){
@@ -51,7 +52,7 @@ public class SettingsManager {
         return itemsConfig;
     }
     
-    public GeneralConfigurations getGeneralConfig(Configuration config){
+    public GeneralConfigurations extractGeneralConfig(Configuration config){
         boolean debugPrint, commandPrint, detailPlayerPrint, returnOnFail, tossOnFail;
         ConfigurationSection section = config.getConfigurationSection("General");
         // Get userConfig
@@ -64,7 +65,7 @@ public class SettingsManager {
         return new GeneralConfigurations(debugPrint, commandPrint, detailPlayerPrint, returnOnFail, tossOnFail);
     }
     
-    public HashMap getItemConfig(Configuration config) throws NullPointerException{
+    public HashMap extractItemConfig(Configuration config) throws NullPointerException{
         HashMap<String,ItemChance> items = new HashMap<String,ItemChance>();
         ConfigurationSection section = config.getConfigurationSection("Items");
         //Get itemConfig

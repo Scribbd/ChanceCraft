@@ -23,10 +23,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import me.scriblon.plugins.chancecraft.listeners.ChanceCraftListener;
-
 import me.scriblon.plugins.chancecraft.managers.ChanceManager;
 import me.scriblon.plugins.chancecraft.managers.JobsManager;
 import me.scriblon.plugins.chancecraft.managers.SettingsManager;
+
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.PluginManager;

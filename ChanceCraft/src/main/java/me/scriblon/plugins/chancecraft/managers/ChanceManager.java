@@ -19,6 +19,7 @@ import java.util.Map;
 import me.scriblon.plugins.chancecraft.ChanceCraft;
 import me.scriblon.plugins.chancecraft.container.ItemChance;
 import me.scriblon.plugins.chancecraft.util.Dice;
+import org.bukkit.entity.Player;
 
 /**
  *
@@ -44,11 +45,17 @@ public class ChanceManager {
         return items.containsKey(typeID);
     }
     
-    public boolean isCraftSucces(int typeID){
+    public boolean isCraftSucces(int typeID, Player player){
         if(!isChanceItem(typeID))
             return false;
         
+        final ItemChance item = items.get(typeID);
         
+        if(jobs.isAvailable()){
+            return dice.succes(jobs.calculateChance(player, item));
+        } else {
+            return dice.succes(item.getNormalChance());
+        }
     }
     
 }

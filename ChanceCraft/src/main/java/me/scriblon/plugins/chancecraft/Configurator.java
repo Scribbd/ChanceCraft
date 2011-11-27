@@ -12,9 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
-import sun.swing.SwingUtilities2.Section;
 
 /**
  * Handels the configuration file and saves/load the configurations in nice containers.
