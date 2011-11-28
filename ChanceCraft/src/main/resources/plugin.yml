@@ -8,3 +8,15 @@ startup: postworld
 version: 0.2.0
 depend: [Spout]
 softdepend: [Jobs]
+commands:
+  ChanceCraft:
+    description: The main command for ChanceCraft.
+    aliases: [cc, chancec, ccraft]
+    usage: Syntax error. Please use as follows /<command> [bypass].
+permissions:
+  ChanceCraft.bypass:
+    description: If player bypasses ChanceCraft plugin entirely
+    default: false
+  ChanceCraft.toggle:
+    description: Has the ability to toggle the bypass
+    default: false

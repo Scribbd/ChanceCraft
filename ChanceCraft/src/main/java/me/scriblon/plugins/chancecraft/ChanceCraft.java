@@ -58,7 +58,6 @@ public class ChanceCraft extends JavaPlugin {
         
         //Setting up Managers
         settingsManager = new SettingsManager();
-        settingsManager.configureSettings();
         jobsManager = new JobsManager();
         chanceManager = new ChanceManager();
         //Events
