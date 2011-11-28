@@ -15,6 +15,7 @@
  */
 package me.scriblon.plugins.chancecraft.managers;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -29,30 +30,28 @@ import org.bukkit.configuration.ConfigurationSection;
  * @author Coen Meulenkamp (Scriblon, ~theJaf) <coenmeulenkamp at gmail.com>
  */
 public class SettingsManager {
-    final private ChanceCraft chance;    
+    private final ChanceCraft chance;    
     //Setting Containers
-    private GeneralConfigurations generalConfig;
-    private Map<Integer, ItemChance> itemsConfig;
+    public final GeneralConfigurations general;
+    private Map<Integer, ItemChance> items;
     
     public SettingsManager(){
         chance = ChanceCraft.getInstance();
-    }
-    
-    public void configureSettings(){
+        
         final Configuration config = chance.getConfig();
-        generalConfig = this.extractGeneralConfig(config);
-        itemsConfig = this.extractItemConfig(config);
+        general = extractGeneralConfig(config);
+        items = extractItemConfig(config);
     }
     
-    public GeneralConfigurations getGeneralConfig(){
-        return generalConfig;
+    public GeneralConfigurations getGeneral(){
+        return general;
     }
     
     public Map<Integer, ItemChance> getItems(){
-        return itemsConfig;
+        return Collections.unmodifiableMap(items);
     }
     
-    public GeneralConfigurations extractGeneralConfig(Configuration config){
+    public final GeneralConfigurations extractGeneralConfig(Configuration config){
         boolean debugPrint, commandPrint, detailPlayerPrint, returnOnFail, tossOnFail;
         ConfigurationSection section = config.getConfigurationSection("General");
         // Get userConfig
@@ -65,7 +64,7 @@ public class SettingsManager {
         return new GeneralConfigurations(debugPrint, commandPrint, detailPlayerPrint, returnOnFail, tossOnFail);
     }
     
-    public HashMap extractItemConfig(Configuration config) throws NullPointerException{
+    public final HashMap extractItemConfig(Configuration config) throws NullPointerException{
         HashMap<String,ItemChance> items = new HashMap<String,ItemChance>();
         ConfigurationSection section = config.getConfigurationSection("Items");
         //Get itemConfig
