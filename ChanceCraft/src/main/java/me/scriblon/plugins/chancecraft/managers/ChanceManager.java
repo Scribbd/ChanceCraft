@@ -19,7 +19,6 @@ import java.util.Map;
 import me.scriblon.plugins.chancecraft.ChanceCraft;
 import me.scriblon.plugins.chancecraft.container.ItemChance;
 import me.scriblon.plugins.chancecraft.util.Dice;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

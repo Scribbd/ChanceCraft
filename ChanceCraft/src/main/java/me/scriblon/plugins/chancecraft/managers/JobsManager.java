@@ -17,7 +17,6 @@ package me.scriblon.plugins.chancecraft.managers;
 
 import com.zford.jobs.Jobs;
 import com.zford.jobs.config.container.Job;
-import com.zford.jobs.config.container.JobProgression;
 import com.zford.jobs.config.container.JobsPlayer;
 import java.util.List;
 import me.scriblon.plugins.chancecraft.ChanceCraft;
@@ -31,6 +30,8 @@ import org.bukkit.plugin.PluginManager;
  * @author Coen Meulenkamp (Scriblon, ~theJaf) <coenmeulenkamp at gmail.com>
  */
 public class JobsManager {
+    
+    public static final double NO_CHANCE = Double.MIN_VALUE;
     
     private final ChanceCraft plugin;
     
@@ -67,7 +68,7 @@ public class JobsManager {
     }
     
     public double getHighestChance(JobsPlayer jobsList, ItemChance item){
-        double maxChance = -1.0;
+        double maxChance = NO_CHANCE;
         
         for(Job job : jobsList.getJobs()){
             final int lvl = jobsList.getJobsProgression(job).getLevel();

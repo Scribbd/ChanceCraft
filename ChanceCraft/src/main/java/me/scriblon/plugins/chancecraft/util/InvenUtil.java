@@ -15,6 +15,8 @@
  */
 package me.scriblon.plugins.chancecraft.util;
 
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -28,8 +30,32 @@ public class InvenUtil {
             return null;
         
         for(int i = 0; i<original.length; i++){
-            
+            if(original[i] != null){
+                int newAmount = original[i].getAmount() - substraction[i].getAmount();
+                if(newAmount >= 0){
+                    original[i].setAmount(newAmount);
+                } else {
+                    original[i].setType(Material.AIR);
+                    original[i].setAmount(0);
+                }
+            }
         }
         return original;
+    }
+    
+    public static ItemStack[] emptyStack(ItemStack[] original){
+        for(int i = 0; i<original.length; i++){
+            if(original[i] != null){
+                original[i].setType(Material.AIR);
+                original[i].setAmount(0);
+            }
+        }
+        return null;
+    }
+    
+    public static void dropStack(ItemStack[] original, Location location){
+        for(int i = 0; i<original.length; i++){
+            location.getWorld().dropItemNaturally(location, original[i]);
+        }
     }
 }

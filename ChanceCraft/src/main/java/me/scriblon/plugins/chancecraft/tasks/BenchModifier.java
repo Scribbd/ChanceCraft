@@ -16,7 +16,10 @@
 package me.scriblon.plugins.chancecraft.tasks;
 
 import me.scriblon.plugins.chancecraft.ChanceCraft;
+import me.scriblon.plugins.chancecraft.util.InvenUtil;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.getspout.spoutapi.inventory.CraftingInventory;
 
@@ -30,20 +33,30 @@ public class BenchModifier implements Runnable{
     private final BukkitScheduler scheduler;
     private final Player player;
     private final CraftingInventory inventory;
+    private final boolean failToss;
+    private final Location benchLoc;
     
     private int iD;
     
-    public BenchModifier(Player player, CraftingInventory inventory){
+    public BenchModifier(Player player, CraftingInventory inventory, boolean failToss, Location benchLoc){
         plugin = ChanceCraft.getInstance();
         scheduler = plugin.getServer().getScheduler();
         this.player = player;
         this.inventory = inventory;
+        this.failToss = failToss;
+        this.benchLoc = benchLoc;
         
         iD = -1;
     }
     
     public void run() {
-        
+        ItemStack[] substractionStack = plugin.getChanceManager().getSubstractionStack(inventory.getMatrix());
+        ItemStack[] substractedStack = InvenUtil.substractStack(inventory.getMatrix(), substractionStack);
+        if(failToss){
+            InvenUtil.dropStack(substractedStack, benchLoc);
+            substractedStack = InvenUtil.emptyStack(substractedStack);
+        }
+        inventory.setMatrix(substractedStack);
     }
     
     public void scheduleMe(){
