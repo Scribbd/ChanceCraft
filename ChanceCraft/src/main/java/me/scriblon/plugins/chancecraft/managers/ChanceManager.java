@@ -29,6 +29,7 @@ import org.bukkit.inventory.ItemStack;
 public class ChanceManager {
     
     public static final double ALWAYS_SUCCES = Double.MAX_VALUE;
+    public static final double NO_CHANCE = Double.MIN_VALUE;
     public static final double ITEM_SAVE_CHANCE = 50.0;
     
     private final ChanceCraft plugin;

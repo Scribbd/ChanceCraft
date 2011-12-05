@@ -47,7 +47,7 @@ public class Configurator {
         final File configFile = new File(plugin.getDataFolder() + File.separator + "config.yml");
         if(!configFile.exists()){
             try {
-                ChanceCraft.logInfo("runs for the first time. Creating configuration-File");
+                ChanceCraft.logInfo("runs for the first time. Creating configuration-file");
                 this.firstRun(configFile, plugin.getResource("config.yml"));
                 ChanceCraft.logInfo("Configuration File created. Please configure this file and restart server.");
                 this.requestStop();
@@ -81,7 +81,7 @@ public class Configurator {
     private boolean checkItems(){
         final ConfigurationSection itemSection = plugin.getConfig().getConfigurationSection("Items");
         if(itemSection.getKeys(false).isEmpty()){
-            ChanceCraft.logSevere("detected that no items are configured. Please configure Items and restart server!");
+            ChanceCraft.logSevere("detects that no items are configured. Please configure Items and restart server!");
             this.requestStop();
         }
         

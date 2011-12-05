@@ -31,9 +31,7 @@ import org.bukkit.plugin.PluginManager;
  */
 public class JobsManager {
     
-    public static final double NO_CHANCE = Double.MIN_VALUE;
-    
-    private final ChanceCraft plugin;
+   private final ChanceCraft plugin;
     
     private Jobs jobs;
     private boolean isJobsAvailable;
@@ -68,7 +66,7 @@ public class JobsManager {
     }
     
     public double getHighestChance(JobsPlayer jobsList, ItemChance item){
-        double maxChance = NO_CHANCE;
+        double maxChance = ChanceManager.NO_CHANCE;
         
         for(Job job : jobsList.getJobs()){
             final int lvl = jobsList.getJobsProgression(job).getLevel();
