@@ -80,9 +80,10 @@ public class Configurator {
     
     private boolean checkItems(){
         final ConfigurationSection itemSection = plugin.getConfig().getConfigurationSection("Items");
-        if(itemSection.getKeys(false).isEmpty()){
+        if(itemSection == null){
             ChanceCraft.logSevere("detects that no items are configured. Please configure Items and restart server!");
             this.requestStop();
+            return false;
         }
         
         return true;
