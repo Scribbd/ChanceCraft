@@ -32,14 +32,19 @@ import org.bukkit.configuration.ConfigurationSection;
 public class SettingsManager {
     private final ChanceCraft chance;    
     //Setting Containers
-    public final GeneralConfigurations general;
+    private final GeneralConfigurations general;
     private Map<Integer, ItemChance> items;
     
     public SettingsManager(){
         chance = ChanceCraft.getInstance();
         
         final Configuration config = chance.getConfigurator().getConfig();
-        general = extractGeneralConfig(config);
+        general = extractGeneralConfig(config);;
+    }
+    
+    //FIXME workaround for a construction loop.
+    public void configureItems(){
+        final Configuration config = chance.getConfigurator().getConfig();
         items = extractItemConfig(config);
     }
     
@@ -59,7 +64,16 @@ public class SettingsManager {
         commandPrint = section.getBoolean("CommandPrint", false);
         detailPlayerPrint = section.getBoolean("DetailPlayerPrint", true);
         returnOnFail = section.getBoolean("ReturnOnFail", false);
-        tossOnFail = section.getBoolean("TossOnFail");
+        tossOnFail = section.getBoolean("TossOnFail", false);
+        
+        if(debugPrint){
+            ChanceCraft.logInfo("(DebugPrint) GeneralConfig is parsed as follows: \n"
+                    + "\t\t   DebugPrint \t" + debugPrint + "\t defaults to false \n"
+                    + "\t\t CommandPring \t" + commandPrint + "\t defaults to false \n" 
+                    + "\t    DetailPlayerPrint \t" + detailPlayerPrint + "\t defaults to true \n"
+                    + "\t\t ReturnOnFail \t" + returnOnFail + "\t defaults to false \n"
+                    + "\t\t   TossOnFail \t" + tossOnFail + "\t defaults to false");
+        }
 
         return new GeneralConfigurations(debugPrint, commandPrint, detailPlayerPrint, returnOnFail, tossOnFail);
     }
@@ -73,7 +87,7 @@ public class SettingsManager {
             String name = itemID.substring(1);
             double normalChance = section.getDouble(itemID + ".NormalChance", 100.1);
             boolean professionExclusive = section.getBoolean(itemID + ".ProfessionExclusive", false);
-            ConfigurationSection profSection = section.getConfigurationSection("Professions");
+            ConfigurationSection profSection = section.getConfigurationSection(itemID + ".Professions");
             itemsa.put(name, new ItemChance("", name, professionExclusive, normalChance, profSection));
         }
         return itemsa;

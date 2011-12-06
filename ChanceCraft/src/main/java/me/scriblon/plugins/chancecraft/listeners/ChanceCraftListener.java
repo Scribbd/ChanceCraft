@@ -42,7 +42,7 @@ public class ChanceCraftListener extends InventoryListener{
         //Check if item is a chanced item.
         final int resultTypeID = event.getResult().getTypeId();
         if(!chances.isChanceItem(resultTypeID)){
-            if(settings.general.isDebugPrint())
+            if(settings.getGeneral().isDebugPrint())
                 ChanceCraft.logInfo("Item not of ChanceType: " + event.getResult().getType().name());
             return;
         }
@@ -50,14 +50,14 @@ public class ChanceCraftListener extends InventoryListener{
         final Player player = event.getPlayer();
         if(player.hasPermission("ChanceCraft.bypass")){
             player.sendMessage(ChatColor.DARK_GREEN + "ChanceCraft bypassed!");
-            if(settings.general.isCommandPrint() || settings.general.isDebugPrint())
+            if(settings.getGeneral().isCommandPrint() || settings.getGeneral().isDebugPrint())
                 ChanceCraft.logInfo("Player has bypassed ChanceCraft: " + player.getDisplayName());
             return;
         }
         //Check if item is an exclusive one.
         if(chances.isProfExclusive(resultTypeID)){
             player.sendMessage(ChatColor.RED + "The item you try to craft can only be crafted by professionals.");
-            if(settings.general.isCommandPrint() || settings.general.isDebugPrint())
+            if(settings.getGeneral().isCommandPrint() || settings.getGeneral().isDebugPrint())
                 ChanceCraft.logInfo("Player tried to craft ProfExclusive item " + event.getResult().getType().name() + " : " + player.getDisplayName());
             event.setCancelled(true);
             return;
@@ -68,12 +68,12 @@ public class ChanceCraftListener extends InventoryListener{
      //---Succeeding
         if(chances.determineSucces(roll, chance)){
             player.sendMessage(ChatColor.DARK_GREEN + "You succesfuly crafted the item.");
-            if(settings.general.isDetailPrint()){
+            if(settings.getGeneral().isDetailPrint()){
                 player.sendMessage(ChatColor.DARK_GREEN + "Details: \n"
                         + ChatColor.GREEN + " Your Chance: "+ ChatColor.GRAY + Math.floor(chance)
                         + ChatColor.GREEN + " Your Roll: "+ ChatColor.GRAY + roll);
             }
-            if(settings.general.isCommandPrint()){
+            if(settings.getGeneral().isCommandPrint()){
                 ChanceCraft.logInfo("Player succesfuly to craft the item " + event.getResult().getType().name() + " : " + player.getDisplayName());
             }
             return;
@@ -81,18 +81,18 @@ public class ChanceCraftListener extends InventoryListener{
         
      //----Failing
         player.sendMessage(ChatColor.RED + "You failed to craft the item.");
-        if(settings.general.isDetailPrint()){
+        if(settings.getGeneral().isDetailPrint()){
             player.sendMessage(ChatColor.DARK_RED + "Details: \n"
                     + ChatColor.RED + " Your Chance: "+ ChatColor.GRAY + Math.floor(chance)
                     + ChatColor.RED + " Your Roll: "+ ChatColor.GRAY + roll);
         }
-        if(settings.general.isCommandPrint()){
+        if(settings.getGeneral().isCommandPrint()){
             ChanceCraft.logInfo("Player failed to craft the item " + event.getResult().getType().name() + " : " + player.getDisplayName());
         }
         event.setCancelled(true);
       // Stack must be mutated
-        if(!settings.general.isReturnOnFail()){
-            BenchModifier task = new BenchModifier(player, event.getInventory(), settings.general.isFailToss(), event.getLocation());
+        if(!settings.getGeneral().isReturnOnFail()){
+            BenchModifier task = new BenchModifier(player, event.getInventory(), settings.getGeneral().isFailToss(), event.getLocation());
             task.scheduleMe();
         }
     }

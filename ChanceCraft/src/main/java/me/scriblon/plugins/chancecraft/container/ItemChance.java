@@ -18,6 +18,7 @@ package me.scriblon.plugins.chancecraft.container;
 
 import java.util.HashMap;
 import java.util.Set;
+import me.scriblon.plugins.chancecraft.ChanceCraft;
 import org.bukkit.configuration.ConfigurationSection;
 
 /**
@@ -56,13 +57,22 @@ public class ItemChance {
      * @param section 
      */
     public ItemChance(String itemName, String itemID, boolean profExclusive, double normalChance, ConfigurationSection section){
+        final boolean debugCode = ChanceCraft.getInstance().getSettingsManager().getGeneral().isDebugPrint();
+        
         profs = new HashMap<String, ProfChance>();
         this.itemID = itemID;
         this.itemName = itemName;
         this.profExclusive = profExclusive;
         this.normalChance = normalChance;
+        
+        if(debugCode){
+            ChanceCraft.logInfo("(DebugCode) Item " + itemID + " has the following General-settings \n"
+                    + "\t\t profExclusive \t" + profExclusive + "\n"
+                    + "\t\t  normalChance \t" + normalChance);
+        }
+        
         // get configuration out of section
-        if(section == null){
+        if(section != null){
             Set<String> profList = section.getKeys(false);
             for(String prof : profList){
                 double profChance0 = section.getDouble(prof + ".ProfessionChance0", -1.0);
@@ -71,7 +81,20 @@ public class ItemChance {
                 int minProfLvl = section.getInt(prof + ".MinProflvl", -1);
                 int maxProfLvl = section.getInt(prof + ".MaxProflvl", -1);
                 profs.put(prof, new ProfChance(itemName, profChanceMin, profChanceMax, profChance0, minProfLvl, maxProfLvl));
+                
+                if(debugCode){
+                    ChanceCraft.logInfo("(DebugCode) Item " + itemID + " has prof-stetting: \n"
+                            + "\t       ProfName  " + prof + "\n"
+                            + "\t\t  ProfChanceMin  " + profChanceMin + "\n"
+                            + "\t\t  ProfChanceMax  " + profChanceMax + "\n"
+                            + "\t\t ProfChanceZero  " + profChance0 + "\n"
+                            + "\t\t     ProfMinLvl  " + minProfLvl + "\n"
+                            + "\t\t     ProfMaxLvl  " + maxProfLvl + "\n");
+                }
             }
+        } else {
+            if(debugCode)
+                ChanceCraft.logInfo("(DebugCode) Item " + itemID + " has no set proffesions.");
         }
     }
     

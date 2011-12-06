@@ -102,6 +102,5 @@ public class Configurator {
     public FileConfiguration getConfig(){
         File confFile = new File(plugin.getDataFolder(), "config.yml");
         return YamlConfiguration.loadConfiguration(confFile);
-        
     }
 }

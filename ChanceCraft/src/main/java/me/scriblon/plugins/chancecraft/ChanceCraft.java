@@ -41,8 +41,8 @@ public class ChanceCraft extends JavaPlugin {
     private static ChanceCraft chance;
     private Configurator configurator;
     //managers
-    private ChanceManager chanceManager;
     private SettingsManager settingsManager;
+    private ChanceManager chanceManager;
     private JobsManager jobsManager;
     //Listeners
     private ChanceCraftListener cListener;
@@ -58,6 +58,8 @@ public class ChanceCraft extends JavaPlugin {
         
         //Setting up Managers
         settingsManager = new SettingsManager();
+        settingsManager.configureItems();
+        
         jobsManager = new JobsManager();
         chanceManager = new ChanceManager();
         //Events
