@@ -5,11 +5,12 @@ General:
     CommandPrint: false
     DetailPlayerPrint: true
     ReturnOnFail: false
-    TossOnFail: null
+    TossOnFail: false
     
 ## Template to add an item.
-## Limit to this version. Only supports itemID and blockID, 
-#    <ItemID>:
+## Only supports itemID and blockID,
+## Always start an itemnumber with an 'i' !
+#    i<ItemID>:
 #        NormalChance: <0-100>
 #        ProfessionExclusive: <true/false>
 #        Professions:

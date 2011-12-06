@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 
 /**
@@ -36,9 +38,10 @@ public class Configurator {
         // Check config.yml file
         if(!checkFiles())
             return false;
-        // Check contents config.yml file
-        if(!checkItems())
-            return false;
+        //FIXME Yaml is giving problems on checking items
+//        // Check contents config.yml file
+//        if(!checkItems())
+//            return false;
         // And finally when everything checks out:
         return true;
     }
@@ -79,8 +82,9 @@ public class Configurator {
     }
     
     private boolean checkItems(){
-        final ConfigurationSection itemSection = plugin.getConfig().getConfigurationSection("Items");
-        if(itemSection == null){
+        final FileConfiguration file = this.getConfig();
+        final ConfigurationSection itemSection = file.getConfigurationSection("Items");
+        if(itemSection.getKeys(false).isEmpty()){
             ChanceCraft.logSevere("detects that no items are configured. Please configure Items and restart server!");
             this.requestStop();
             return false;
@@ -93,5 +97,11 @@ public class Configurator {
         final PluginManager pm = plugin.getServer().getPluginManager();
         ChanceCraft.logSevere("recieved stop request! now disabeling plugin.");
         pm.disablePlugin(plugin);
+    }
+    
+    public FileConfiguration getConfig(){
+        File confFile = new File(plugin.getDataFolder(), "config.yml");
+        return YamlConfiguration.loadConfiguration(confFile);
+        
     }
 }

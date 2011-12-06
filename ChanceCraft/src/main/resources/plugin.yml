@@ -12,7 +12,7 @@ commands:
   ChanceCraft:
     description: The main command for ChanceCraft.
     aliases: [cc, chancec, ccraft]
-    usage: Syntax error. Please use as follows /<command> [bypass].
+    usage: Syntax error. Please use as follows /<command> bypass.
 permissions:
   ChanceCraft.bypass:
     description: If player bypasses ChanceCraft plugin entirely

@@ -38,7 +38,7 @@ public class SettingsManager {
     public SettingsManager(){
         chance = ChanceCraft.getInstance();
         
-        final Configuration config = chance.getConfig();
+        final Configuration config = chance.getConfigurator().getConfig();
         general = extractGeneralConfig(config);
         items = extractItemConfig(config);
     }
@@ -65,16 +65,17 @@ public class SettingsManager {
     }
     
     public final HashMap extractItemConfig(Configuration config) throws NullPointerException{
-        HashMap<String,ItemChance> items = new HashMap<String,ItemChance>();
+        HashMap<String,ItemChance> itemsa = new HashMap<String,ItemChance>();
         ConfigurationSection section = config.getConfigurationSection("Items");
         //Get itemConfig
         Set<String> itemSet = section.getKeys(false);
         for(String itemID : itemSet){
+            String name = itemID.substring(1);
             double normalChance = section.getDouble(itemID + ".NormalChance", 100.1);
             boolean professionExclusive = section.getBoolean(itemID + ".ProfessionExclusive", false);
             ConfigurationSection profSection = section.getConfigurationSection("Professions");
-            items.put(itemID, new ItemChance(null, itemID, professionExclusive, normalChance, profSection));
+            itemsa.put(name, new ItemChance("", name, professionExclusive, normalChance, profSection));
         }
-        return items;
+        return itemsa;
     }
 }
